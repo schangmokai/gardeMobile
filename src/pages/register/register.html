@@ -1,0 +1,96 @@
+<!--
+  Generated template for the RegisterPage page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<ion-content class=" auth-bg">
+  <div class="auth-content">
+
+    <div class="light-bg">
+
+      <!-- Logo -->
+      <div padding text-center>
+        <div class="logo primary-bg">
+          <i class="icon-sedan" ion-text color="light" ></i>
+        </div>
+        <h2 ion-text color="dark" >
+          Garde Mobile
+        </h2>
+        <p ion-text color="dark" >Création de compte</p>
+      </div>
+
+      <!-- logintest form -->
+
+      <ion-list class="list-form" padding *ngIf="logintest==0">
+
+        <ion-item>
+          <ion-input type="text" [(ngModel)]="utilisateur.number" placeholder="Numero Telephone"></ion-input>
+        </ion-item>
+         <ion-item>
+          <ion-input type="text" [(ngModel)]="utilisateur.number" placeholder="Pays"></ion-input>
+        </ion-item>
+        <ion-item >
+          <ion-input   type="text" [(ngModel)]="utilisateur.imei" placeholder="Code"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input type="password" [(ngModel)]="utilisateur.password" placeholder="Password"></ion-input>
+        </ion-item>
+
+      </ion-list>
+
+      <ion-list class="list-form" padding *ngIf="logintest==1">
+
+        <ion-item>
+          <ion-input type="text" [(ngModel)]="utilisateur.name" placeholder="Code recu par Sms"></ion-input>
+        </ion-item>
+
+         <ion-item>
+          <ion-input type="text" [(ngModel)]="utilisateur.password" placeholder="Telephone 1"></ion-input>
+        </ion-item>
+
+         <ion-item>
+          <ion-input type="text" [(ngModel)]="utilisateur.password" placeholder="Telephone 2"></ion-input>
+        </ion-item>
+
+         <ion-item>
+          <ion-input type="text" [(ngModel)]="utilisateur.password" placeholder="Telephone 2"></ion-input>
+        </ion-item>
+
+      </ion-list>
+
+      <div padding *ngIf="logintest==0">
+        <button  ion-button color="primary"  block (click)="suivant()">
+          Suivant
+        </button>
+      </div>
+
+      <div padding *ngIf="logintest==1">
+        <button  ion-button color="primary"  block (click)="confirmer(utilisateur)">
+          Terminer
+        </button>
+      </div>
+
+    </div>
+
+    <div padding=""></div>
+
+    <!-- Other links -->
+    <!--<ion-grid>
+      <ion-row>
+        <ion-col>
+          <span ion-text color="light" >Forgot password?</span>
+        </ion-col>
+        <ion-col>
+          <span ion-text color="light" >
+            Have account?
+            <span ion-text color="primary"  (click)="logintest()">logintest</span>
+          </span>
+        </ion-col>
+      </ion-row>
+    </ion-grid>-->
+
+  </div>
+</ion-content>
