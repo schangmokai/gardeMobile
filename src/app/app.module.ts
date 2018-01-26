@@ -6,11 +6,14 @@ import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';  
 import {BarcodeScanner} from '@ionic-native/barcode-scanner';
 import {Geolocation} from '@ionic-native/geolocation';
+import { Media} from '@ionic-native/media';
+import { File } from '@ionic-native/file';
 
 // import services
 import {DriverService} from '../services/driver-service';
 import {NotificationService} from '../services/notification-service';
 import {PlaceService} from '../services/place-service';
+import {HomeService} from '../services/home-service';
 import {TripService} from '../services/trip-service';
 // end import services
 
@@ -78,7 +81,11 @@ import { HttpModule } from '@angular/http';
     PlaceService,
     BarcodeScanner,
     Geolocation,
-    TripService
+    HomeService,
+    TripService,
+    Media,
+    File
+
     /* import services */
   ]
 })

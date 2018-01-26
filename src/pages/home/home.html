@@ -108,13 +108,13 @@
   
   <ion-item>
     <ion-avatar item-start>
-      <img src="http://192.168.43.43/Garde/ImageChauffeur/{{element.chauffeur.photos}}">
+      <img src="http://localhost/Garde/ImageChauffeur/{{element.chauffeur.photos}}">
     </ion-avatar>
     <h2>{{element.chauffeur.nom}}</h2>
     <p>May 12, 1984</p>
   </ion-item>
 
-  <img src="http://192.168.43.43/Garde/ImageChauffeur/{{element.chauffeur.photos}}">
+  <img src="http://localhost/Garde/ImageChauffeur/{{element.chauffeur.photos}}">
 
   <ion-card-content>
     <p>I face the unknown future, with a sense of hope. Because if a machine, a Terminator, can learn the value of human life, maybe we can too.</p>
@@ -122,9 +122,9 @@
 
   <ion-row>
     <ion-col>
-      <button ion-button color="primary" clear small icon-start>
+      <button ion-button color="primary" click)="confirmerForme()" clear small icon-start>
         <ion-icon name='thumbs-up'></ion-icon>
-        30 Likes
+        confirm
       </button>
     </ion-col>
     <ion-col>
@@ -161,9 +161,9 @@
 
   <ion-row>
     <ion-col>
-      <button ion-button color="primary" clear small icon-start>
+      <button ion-button color="primary" (click)="confirmerForme()"  clear small icon-start>
         <ion-icon name='thumbs-up'></ion-icon>
-        46 Likes
+        confirm
       </button>
     </ion-col>
     <ion-col>

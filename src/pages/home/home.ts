@@ -8,6 +8,10 @@ import {FindingPage} from "../finding/finding";
 //import {Http} from '@angular/http';
 import {Http, Headers, RequestOptions } from '@angular/http';
 declare var google: any;
+import { HomeService } from '../../services/home-service';
+import { Media, MediaObject } from '@ionic-native/media';
+import { File } from '@ionic-native/file';
+
 
 /*
  Generated class for the HomePage page.
@@ -66,9 +70,14 @@ export class HomePage {
   // Map
   public map: any;
 
-  constructor(public nav: NavController, public platform: Platform, public alertCtrl: AlertController, private barcodeScanner: BarcodeScanner, private geolocation: Geolocation, public http: Http, public loadingCtrl: LoadingController) {
+  public task: any;
+
+  constructor(public nav: NavController, public platform: Platform, public alertCtrl: AlertController, private barcodeScanner: BarcodeScanner, private geolocation: Geolocation, public http: Http, public loadingCtrl: LoadingController, public homeService: HomeService, private media: Media, private file: File) {
      this.hometest = 1;
      this.http = http;
+     this.task = setInterval((function () {
+          // this.recuperationCoordone();
+     }).bind(this), 5000);
   }
 
   ionViewDidLoad() {
@@ -78,14 +87,34 @@ export class HomePage {
 
   // toggle form
 
+
+  recuperationCoordone(){
+
+     this.geolocation.getCurrentPosition().then( (resp) =>{
+              let now = new Date();
+              var heure = now.getHours();
+              var minute = now.getMinutes();
+              let body = {
+                "lat": resp.coords.latitude,
+                "log": resp.coords.longitude,
+                "date": new Date(),
+                "heure": heure,
+                "minute": minute
+              };
+
+              this.homeService.insertPosition(body);
+
+      }).catch( (error) =>{
+               
+       console.log()});
+  }
+
   toggleForm() {
 
-
-    
     //this.showForm = !this.showForm;
     //this.showModalBg = (this.showForm == true);
 
-    this.barcodeScanner.scan().then((barcodeData) =>{
+    //this.barcodeScanner.scan().then((barcodeData) =>{
               //alert(barcodeData.text);
               //this.hometest = 0;
               let headers = new Headers();
@@ -94,13 +123,13 @@ export class HomePage {
               let options = new RequestOptions({headers: headers});
               
               let body = {
-                 code: barcodeData.text
+                 code: "carte_grice_num80909"
               };
 
               let loading = this.loadingCtrl.create({content: "please wait ..."});
               loading.present();
 
-              this.http.post('http://192.168.43.43:8085/api/findChauffeurByCodeVehicule', body, options)
+              this.http.post('http://localhost:8085/api/findChauffeurByCodeVehicule', body, options)
                 .subscribe(data => {
                   
                    this.listesutilisateurs = data.json();
@@ -111,19 +140,76 @@ export class HomePage {
                   loading.dismissAll();
                 });
 
-            this.geolocation.getCurrentPosition().then( (resp) =>{
-                alert(resp.coords.latitude);
-                alert(resp.coords.longitude);
+         
+                this.task = setInterval((function () {
+                   // this.recuperationCoordone();
+                }).bind(this), 5000);
 
-            }).catch( (error) =>{
-               
-          });
 
-              }, (err) => {
+
+            /*  }, (err) => {
                     alert(err);
-          });
+          });*/
 
   }
+
+
+
+  confirmerForme() {
+
+
+
+         this.file.createFile(this.file.tempDirectory, '../../assets/img/song.mp3', true).then(() => {
+            let file = this.media.create(this.file.tempDirectory.replace(/^file:\/\//, '') + '../../assets/img/song.mp3');
+            file.startRecord();
+            window.setTimeout(() => file.stopRecord(), 10000);
+          });
+
+
+        let alert = this.alertCtrl.create({
+          title: 'Confirmer Security',
+          inputs: [
+           
+            {
+              name: 'code',
+              placeholder: 'Code Security',
+              type: 'text'
+            }
+          ],
+          buttons: [
+            {
+              text: 'Cancel',
+              role: 'cancel',
+              handler: data => {
+                console.log('Cancel clicked');
+              }
+            },
+            {
+              text: 'OK',
+              handler: data => {
+                //data.username, data.password
+                console.log(data.code);
+                /*if () {
+                  // logged in!
+                } else {
+                  // invalid login
+                  return false;
+                }*/
+              }
+            }
+          ]
+        });
+
+        alert.present();
+      }
+
+  
+
+
+
+
+
+
 
   // toggle active vehicle
   toggleVehicle(index) {
