@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
-import {NavController, Platform, AlertController, LoadingController} from 'ionic-angular';
+import {IonicPage} from 'ionic-angular';
+import {NavController, Platform, AlertController, NavParams, LoadingController} from 'ionic-angular';
 import {BarcodeScanner} from '@ionic-native/barcode-scanner';
 import {Geolocation} from '@ionic-native/geolocation';
 import {PlacesPage} from '../places/places';  
@@ -9,8 +10,11 @@ import {FindingPage} from "../finding/finding";
 import {Http, Headers, RequestOptions } from '@angular/http';
 declare var google: any;
 import { HomeService } from '../../services/home-service';
-import { Media, MediaObject } from '@ionic-native/media';
-import { File } from '@ionic-native/file';
+import { maconfig } from '../../configs/configs';
+//import { Media} from '@ionic-native/media';
+//import { File } from '@ionic-native/file';
+//import { LocalNotifications } from '@ionic-native/local-notifications';
+import * as io from 'socket.io-client';
 
 
 /*
@@ -19,7 +23,7 @@ import { File } from '@ionic-native/file';
  See http://ionicframework.com/docs/v2/components/#navigation for more info on
  Ionic pages and navigation.
  */
-
+@IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -38,6 +42,10 @@ export class HomePage {
   public showModalBg: boolean = false;
 
   public listesutilisateurs : any;
+
+  public myid: any;
+
+  public myPosition = null;
 
   // list vehicles
 
@@ -70,14 +78,31 @@ export class HomePage {
   // Map
   public map: any;
 
-  public task: any;
+  public status: any;
 
-  constructor(public nav: NavController, public platform: Platform, public alertCtrl: AlertController, private barcodeScanner: BarcodeScanner, private geolocation: Geolocation, public http: Http, public loadingCtrl: LoadingController, public homeService: HomeService, private media: Media, private file: File) {
+  public task: any;
+  public that: any;
+  public valideur: any;
+  socket:any
+
+  public imagechauffeur: any;
+
+  constructor(public nav: NavController, public platform: Platform, public alertCtrl: AlertController, private barcodeScanner: BarcodeScanner, private geolocation: Geolocation, public http: Http, public loadingCtrl: LoadingController, public homeService: HomeService, public navParams: NavParams) {
+     this.myid = this.navParams.get('id');
+     this.status = this.navParams.get('status');
+     this.imagechauffeur = maconfig.Imagechauffeur
      this.hometest = 1;
      this.http = http;
-     this.task = setInterval((function () {
-          // this.recuperationCoordone();
-     }).bind(this), 5000);
+     this.that = 0;
+     this.socket = io(maconfig.socketadresse);
+     // en cas d'alerte alors la possibilité de chat s'impose a tous les utilisteur connecté
+     this.valideur = 0;
+     this.socket.on('alert', (msg) => {
+        if((msg.id_emetteur!= this.myid)&&(this.valideur == 0)){
+          this.participezAlaDiscussion();
+          this.valideur = 1;
+        }
+     });    
   }
 
   ionViewDidLoad() {
@@ -86,6 +111,49 @@ export class HomePage {
   }
 
   // toggle form
+
+
+  participezAlaDiscussion(){
+
+    let alert2 = this.alertCtrl.create({
+          title: 'Alerte Rouge',
+          message: 'Vollez vous Paricipez à cette Recherche ?',
+          buttons: [
+            {
+              text: 'NON',
+              handler:() => {
+                this.valideur =1;
+                console.log('Cancel clicked');
+              }
+            },
+            {
+              text: 'OUI',
+              handler: () => {
+                /*this.nav.push('ChatPage', {
+                   id = this.myid,
+                   status = this.status
+                });*/
+
+                alert2.dismiss().then(() => {
+                    /*this.nav.pop().then(data => {
+                        this.nav.push('ChatPage', {
+                           id = this.myid,
+                           status = this.status
+                        });
+                    });*/
+
+                    this.allezchater();
+                });
+
+              }
+            }
+
+
+          ]
+        });
+
+        alert2.present();
+  }
 
 
   recuperationCoordone(){
@@ -129,7 +197,7 @@ export class HomePage {
               let loading = this.loadingCtrl.create({content: "please wait ..."});
               loading.present();
 
-              this.http.post('http://localhost:8085/api/findChauffeurByCodeVehicule', body, options)
+              this.http.post(maconfig.findChauffeurByCodeVehicule, body, options)
                 .subscribe(data => {
                   
                    this.listesutilisateurs = data.json();
@@ -154,20 +222,71 @@ export class HomePage {
   }
 
 
-
-  confirmerForme() {
-
+allezchater(){
 
 
-         this.file.createFile(this.file.tempDirectory, '../../assets/img/song.mp3', true).then(() => {
+    this.nav.setRoot('UserdangersPage',{
+      id: this.myid,
+      status: this.status
+    });
+    
+
+    /*this.nav.setRoot('ChatPage',{
+       id: this.myid,
+       status: this.status
+    });*/
+}
+
+
+
+ validerSecurite(){
+
+         /*this.file.createFile(this.file.tempDirectory, '../../assets/img/song.mp3', true).then(() => {
             let file = this.media.create(this.file.tempDirectory.replace(/^file:\/\//, '') + '../../assets/img/song.mp3');
             file.startRecord();
             window.setTimeout(() => file.stopRecord(), 10000);
-          });
+          });*/
+
+
+        this.that = 10;
+        // apres 20 secondes si le monsieur n'a pas valide
+        
+        console.log("this.that dans la GF = " + this.that)
+        setTimeout(() => {
+          if(this.that == 10){
+            // alerte au serveur
+              
+              // pour la premiere fois nous allons modifier un attribut de l'utilisateur en danger et envoyer sa position a la police toutes les 5 secondes
+              // l'attribut danger de l'utilisateur passe a un pour dire qui l'utilisateur est en danger
+               let body = {
+                  "id": this.myid
+                };
+
+            this.homeService.signalerdanger(body);
+
+              this.task = setInterval((function () {
+
+                this.geolocation.getCurrentPosition().then( (resp) =>{ 
+               
+                  console.log("alert au serveur");
+
+
+                  this.socket.emit('alert', {lat : resp.coords.latitude, lon : resp.coords.longitude, id_emetteur: this.myid, status: this.status})
+                  this.that = 50;
+                 }).catch( (error) =>{   
+                  console.log()
+                 });
+              }).bind(this), 1000);
+           }
+           
+        }, 20000);
 
 
         let alert = this.alertCtrl.create({
+
           title: 'Confirmer Security',
+
+
           inputs: [
            
             {
@@ -182,6 +301,7 @@ export class HomePage {
               role: 'cancel',
               handler: data => {
                 console.log('Cancel clicked');
+                this.that = 20;
               }
             },
             {
@@ -189,6 +309,8 @@ export class HomePage {
               handler: data => {
                 //data.username, data.password
                 console.log(data.code);
+                this.that = 0;
+                console.log("c bon il a confirmé")
                 /*if () {
                   // logged in!
                 } else {
@@ -201,12 +323,51 @@ export class HomePage {
         });
 
         alert.present();
-      }
 
-  
+ }
+
+  confirmerForme(element) {
+
+     /* this.task = setInterval((function () {
+          this.recuperationCoordone();
+      }).bind(this), 5000);*/
+
+      this.task = setInterval((function () {
+          if(this.that==0){
+             console.log("this.that = " + this.that)
+             this.validerSecurite();
+          } 
+      }).bind(this), 10000);
+      
+
+      let body = {
+        "vehiculeId": element.vehicule.id,
+        "chauffeurId": element.chauffeur.id,
+        "utilisateurId": this.myid
+      };
 
 
+      this.homeService.saveClientVehicule(body);
 
+
+      /*setTimeout(() => {
+        this.that = 50;
+        console.log("le moaki");
+      }, 1000);
+
+      setTimeout(() => {
+        this.that = 9000;
+        console.log("le pros lexus");
+      }, 3000);
+
+      this.task = setInterval((function () {
+         if(this.that<10000){
+           console.log(this.that);
+         }
+      }).bind(this), 1000);*/
+
+        
+  }
 
 
 
@@ -219,11 +380,14 @@ export class HomePage {
   }
 
   initializeMap() {
-    let latLng = new google.maps.LatLng(21.0318202, 105.8495298);
 
+    var lat = 3.8480325;
+    var lon = 11.502075200000002;
+
+    let latLng = new google.maps.LatLng(3.8480325 , 11.502075200000002);
     let mapOptions = {
       center: latLng,
-      zoom: 16,
+      zoom: 8,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       mapTypeControl: false,
       zoomControl: false,
@@ -249,22 +413,32 @@ export class HomePage {
       google.maps.event.trigger(this.map, 'resize');
     }, 300);
 
+    
     // use GPS to get center position
-    navigator.geolocation.getCurrentPosition(
+
+ 
+      navigator.geolocation.getCurrentPosition(
       (position) => {
-        let newLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+        let newLatLng = new google.maps.LatLng(lat, lon);
         this.map.setCenter(newLatLng);
-        new google.maps.Marker({
-          map: this.map,
-          animation: google.maps.Animation.DROP,
-          position: this.map.getCenter()
-        });
+        if(this.myPosition == null){
+          this.myPosition = 
+          new google.maps.Marker({
+            map: this.map,
+            animation: google.maps.Animation.DROP,
+            position: this.map.getCenter()
+          });
+        }else{
+          this.myPosition.setPosition(newLatLng);
+        }
       },
       (error) => {
         console.log(error);
       },
       options
-    );
+     );
+    
   }
 
   // Show note popup when click to 'Notes to driver'

@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
 import {RegisterPage} from '../register/register';
-import {HomePage} from '../home/home';
-import {Http} from '@angular/http';
-//import {Http, Headers, RequestOptions } from '@angular/http';
+import {Http, Headers, RequestOptions } from '@angular/http';
+import { maconfig } from '../../configs/configs';
 //import {HomePage} from '../home/home'
 
 /*
@@ -38,37 +37,51 @@ export class LoginPage {
 
     login(utilisateur) {
 
-       /* let headers = new Headers();
+        let headers = new Headers();
         headers.append('Accept', 'application/json');
         headers.append('Content-Type', 'application/json');
         let options = new RequestOptions({headers: headers});
         
         let body = {
-           username: utilisateur.username, 
+           login: utilisateur.username, 
            password: utilisateur.password
         };
 
         let loading = this.loadingCtrl.create({content: "Loggin in, please wait ..."});
         loading.present();
 
-        this.http.post('http://localhost:8085/api/utilisateurs/logins/', body, options)
+        this.http.post(maconfig.logins, body, options)
           .subscribe(data => {
-             if(data['_body']!='null'){
-                   
-                   this.nav.setRoot(HomePage);
+            var result = data.json();
+             if(result.code == "400"){
+
+                   //this.nav.setRoot('HomePage');
+                   if(result.status==1){
+                      this.nav.setRoot('HomePage',{
+                      id: result.id,
+                      status: result.status
+                     });
+                    }else{
+                       this.nav.setRoot('UserdangersPage',{
+                        id: result.id,
+                        status: result.status
+                       });
+                    }
+
+
                    loading.dismissAll();
+
              }else{
-               console.log(data['_body']);
-                  this.nav.setRoot(HomePage);
+
+                  this.nav.setRoot(LoginPage);
                   loading.dismissAll();
              }
           }, error => {
             console.log(error);
             loading.dismissAll();
-          });*/
+          });
        
-
-        this.nav.setRoot(HomePage);
+        //this.nav.setRoot('HomePage');
 
     }
 

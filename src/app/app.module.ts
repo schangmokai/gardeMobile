@@ -15,13 +15,15 @@ import {NotificationService} from '../services/notification-service';
 import {PlaceService} from '../services/place-service';
 import {HomeService} from '../services/home-service';
 import {TripService} from '../services/trip-service';
+import {TrackingpoliceService} from '../services/trackingpolice-service';
+
+
 // end import services
 
 // import pages
 import {DriverPage} from '../pages/driver/driver';
 import {FindingPage} from '../pages/finding/finding';
 import {HistoryPage} from '../pages/history/history';
-import {HomePage} from '../pages/home/home';
 import {LoginPage} from '../pages/login/login';
 import {ModalRatingPage} from '../pages/modal-rating/modal-rating';
 import {NotificationPage} from '../pages/notification/notification';
@@ -40,7 +42,6 @@ import { HttpModule } from '@angular/http';
     DriverPage,
     FindingPage,
     HistoryPage,
-    HomePage,
     LoginPage,
     ModalRatingPage,
     NotificationPage,
@@ -62,7 +63,6 @@ import { HttpModule } from '@angular/http';
     DriverPage,
     FindingPage,
     HistoryPage,
-    HomePage,
     LoginPage,
     ModalRatingPage,
     NotificationPage,
@@ -83,6 +83,7 @@ import { HttpModule } from '@angular/http';
     Geolocation,
     HomeService,
     TripService,
+    TrackingpoliceService,
     Media,
     File
 
@@ -91,3 +92,5 @@ import { HttpModule } from '@angular/http';
 })
 export class AppModule {
 }
+
+

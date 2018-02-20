@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-navbar color="primary" >
+    <button  ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Chat pour {{user.nom}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  
+  <div class="conversation">
+      <div class="conversation-container">
+      <div *ngFor="let message of chats">
+        <div  *ngIf='message.id_emetteur != myid' comment-pair>
+          <div class="message received">
+                <img src="assets/img/sarah-avatar.png.jpeg" class="avatar">
+                      <span >{{message.message}}</span>
+                      <span class="metadata">
+                          <span class="time"><small><ion-icon name="person"></ion-icon></small>&nbsp;<small>{{message.message}}</small></span>
+                          <span class="time"><small><ion-icon name="time"></ion-icon></small>&nbsp;<small>mokai</small></span>
+                      </span>
+          </div>
+        </div> 
+
+        <div *ngIf='message.id_emetteur == myid' comment-impair>
+          <div class="message sent">
+            <img src="assets/img/ian-avatar.png" class="avatar">
+                      <span >{{ message.message }}</span>
+                      <span class="metadata">
+                          <span class="time"><small><ion-icon name="person"></ion-icon></small>&nbsp;<small>{{message.message}}</small></span>
+                <span class="time"><small><ion-icon name="time"></ion-icon></small>&nbsp;<small>pros</small></span>
+                      </span>
+          </div>
+        </div>
+        <div style="clear: both"></div>
+      </div> 
+    </div>
+  </div>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" position="bottom" enabled="true" *ngIf="ready">
+      <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+
+
+<ion-footer no-border class="chatPageFooter">
+  <ion-toolbar>
+    <ion-item no-lines>
+      <ion-label style="margin:0px;"></ion-label>
+      <div item-content style="width:100%;">
+
+        <ion-input class="moninput" type="text"  placeholder="Enter message"  [(ngModel)]='content' 
+             (input)='onInputTime($event.target.value)'>
+        </ion-input>
+
+      </div>
+    </ion-item>
+    <ion-buttons right style="margin-left:10px">
+      <button (click)="send(content)" ion-button icon-only style="margin-top: -10px;">
+        <ion-icon name="md-send"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-footer>

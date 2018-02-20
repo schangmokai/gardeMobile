@@ -1,0 +1,110 @@
+<!--
+  Generated template for the HomePage page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="primary" >
+    <button  ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Garde</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  
+    <div *ngIf="hometest == 0">
+      
+      <div *ngFor="let user of listesutilisateursEnDangers">
+       
+        <ion-card  >
+          <ion-item>
+           <ion-icon name="ios-navigate-outline" item-left (click)="allezchater(user)"></ion-icon>        
+              <div style="margin-left: 15px;" class="bold">{{ user.nom }}</div>
+              <div style="margin-left: 15px;" >  Nom: {{ user.nom }} {{ user.prenom }} </div> 
+           <!--<ion-icon *ngIf="status!=1" name="ios-pin-outline" item-right (click)="selection(user)"></ion-icon>-->
+             <ion-icon name="ios-pin-outline" item-right (click)="selection(user)"></ion-icon>
+          </ion-item>
+          <div>
+              <img (click)="details(user)" src="{{imagesUsers}}{{user.image}}">
+          </div>
+        </ion-card>
+        
+      </div>
+      <div padding>
+        <button  ion-button color="primary"  block (click)="mapdnager()">
+          Map To all
+        </button>
+      </div>
+
+  </div>
+      
+  <div *ngIf="hometest == 1">
+      
+    <div *ngFor="let descriptionvehicule of descriptionvehicules">
+      
+       <ion-card>
+          <ion-item>     
+              <div style="margin-left: 15px;" class="bold">Photos Du Chauffeurs</div>
+          </ion-item>
+          <div>
+              <img src="{{Imagechauffeur}}{{descriptionvehicule.chauffeur.photos}}">
+          </div>
+      </ion-card>
+      <ion-card>
+          <ion-item>     
+              <div style="margin-left: 15px;" class="bold">Vehicule Image 1</div>
+          </ion-item>
+          <div>
+              <img src="{{imagesVehicule}}{{descriptionvehicule.vehicule.photos_1}}">
+          </div>
+      </ion-card>
+      <ion-card>
+          <ion-item>     
+              <div style="margin-left: 15px;" class="bold">Vehicule Image 2</div>
+          </ion-item>
+          <div>
+              <img src="{{imagesVehicule}}{{descriptionvehicule.vehicule.photos_2}}">
+          </div>
+      </ion-card>
+      <ion-card>
+          <ion-item>     
+              <div style="margin-left: 15px;" class="bold">Vehicule Image 3</div>
+          </ion-item>
+          <div>
+              <img src="{{imagesVehicule}}{{descriptionvehicule.vehicule.photos_3}}">
+          </div>
+      </ion-card>
+      <ion-card>
+          <ion-item>     
+              <div style="margin-left: 15px;" class="bold">Vehicule Image 4</div>
+          </ion-item>
+          <div>
+              <img src="{{imagesVehicule}}{{descriptionvehicule.vehicule.photos_4}}">
+          </div>
+      </ion-card>
+
+      <div padding>
+        <button  ion-button color="primary"  block (click)="retour()">
+          retour
+        </button>
+      </div>
+
+    </div>
+
+      
+
+  </div>
+
+  <div   *ngIf="hometest==2">
+    
+      <!-- Show map here -->
+        <div id="{{ mapId }}" [ngStyle]="{height: mapHeight + 'px'}"></div>
+
+        <div class="modal-bg black-transparent" [hidden]="!showModalBg"></div>
+
+  </div>
+
+</ion-content>
