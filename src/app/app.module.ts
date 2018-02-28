@@ -8,6 +8,7 @@ import {BarcodeScanner} from '@ionic-native/barcode-scanner';
 import {Geolocation} from '@ionic-native/geolocation';
 import { Media} from '@ionic-native/media';
 import { File } from '@ionic-native/file';
+import { Network } from  '@ionic-native/network';
 
 // import services
 import {DriverService} from '../services/driver-service';
@@ -15,6 +16,7 @@ import {NotificationService} from '../services/notification-service';
 import {PlaceService} from '../services/place-service';
 import {HomeService} from '../services/home-service';
 import {TripService} from '../services/trip-service';
+import {ConnectivityService} from '../services/connectivity-service';
 import {TrackingpoliceService} from '../services/trackingpolice-service';
 
 
@@ -85,7 +87,9 @@ import { HttpModule } from '@angular/http';
     TripService,
     TrackingpoliceService,
     Media,
-    File
+    File,
+    Network,
+    ConnectivityService
 
     /* import services */
   ]

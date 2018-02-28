@@ -9,7 +9,8 @@
     <button  ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Garde</ion-title>
+    <ion-title *ngIf="hometest==2">Nombres de clients {{nombredeclients}}</ion-title>
+    <ion-title *ngIf="hometest!=2">Garde</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -136,4 +137,32 @@
 </ion-card>
 
 </div>
+
+  <div  *ngIf="hometest==2">
+        
+        <ion-card *ngFor="let element of listesclients">
+        
+            <ion-item>
+              <ion-avatar item-start>
+            <img src="{{imagesUsers}}{{element.utilisateur.image}}">
+              </ion-avatar>
+              <h2>{{element.utilisateur.nom}} {{element.utilisateur.prenom}} </h2>
+              <p>May 12, 1984</p>
+            </ion-item>
+
+            <img src="{{imagesUsers}}{{element.utilisateur.image}}">
+
+            <ion-card-content>
+              <p>DESCRIPTION DU CLIENT.</p>
+            </ion-card-content>
+
+        </ion-card>
+
+      <div padding>
+        <button  ion-button color="primary"  block (click)="entreeDansLaVoiture()">
+          Entrez
+        </button>
+      </div>
+
+      </div>
 </ion-content>

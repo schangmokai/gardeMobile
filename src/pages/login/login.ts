@@ -55,17 +55,20 @@ export class LoginPage {
             var result = data.json();
              if(result.code == "400"){
 
-                   //this.nav.setRoot('HomePage');
+                   //this.nav.setRoot('OuestilPage');
                    if(result.status==1){
-                      this.nav.setRoot('HomePage',{
-                      id: result.id,
-                      status: result.status
+                     this.nav.setRoot('HomePage',{
+                        id: result.id,
+                        status: result.status
                      });
+                 
                     }else{
+
                        this.nav.setRoot('UserdangersPage',{
                         id: result.id,
                         status: result.status
                        });
+                       
                     }
 
 

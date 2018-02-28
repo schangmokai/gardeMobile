@@ -19,12 +19,20 @@ export class HomeService {
         headers.append('Content-Type', 'application/json');
         let options = new RequestOptions({headers: headers});
         let body = donnees
-
-         this.http.post(maconfig.insertposition, body, options)
+        /*this.http.post(maconfig.insertposition, body, options)
           .subscribe(data => {
           }, error => {
             console.log(error);
-            
+         
+          });*/
+
+        return new Promise((succes, failed)=>{
+            this.http.post(maconfig.insertposition, body, options).subscribe(data => {
+              succes(data.json());
+            }, error => {
+                  console.log(error);
+                  failed(error);
+            });
         });
   }
 
@@ -35,12 +43,18 @@ export class HomeService {
         headers.append('Content-Type', 'application/json');
         let options = new RequestOptions({headers: headers});
         let body = donnees
-
-         this.http.post(maconfig.saveClientVehicule, body, options)
+         /*this.http.post(maconfig.saveClientVehicule, body, options)
           .subscribe(data => {
           }, error => {
             console.log(error);
-            
+        });*/
+        return new Promise((succes, failed)=>{
+            this.http.post(maconfig.saveClientVehicule, body, options).subscribe(data => {
+              succes(data.json());
+            }, error => {
+                  console.log(error);
+                  failed(error);
+            });
         });
   }
 
@@ -51,16 +65,23 @@ export class HomeService {
         headers.append('Content-Type', 'application/json');
         let options = new RequestOptions({headers: headers});
         let body = donnees
-
-         this.http.post(maconfig.signalerdanger, body, options)
+        /*this.http.post(maconfig.signalerdanger, body, options)
           .subscribe(data => {
           }, error => {
             console.log(error);
             
+        });*/
+        return new Promise((succes, failed)=>{
+            this.http.post(maconfig.signalerdanger, body, options).subscribe(data => {
+              succes(data.json());
+            }, error => {
+                  console.log(error);
+                  failed(error);
+            });
         });
   }
 
-
+  
   findClientByVehicule(donnees) {
     let headers = new Headers();
     headers.append('Accept', 'application/json');
@@ -70,6 +91,23 @@ export class HomeService {
 
     return new Promise((succes, failed)=>{
         this.http.post(maconfig.findClientByVehicule, body, options).subscribe(data => {
+          succes(data.json());
+        }, error => {
+              console.log(error);
+              failed(error);
+        });
+    });
+  }
+
+  findAllClientByVehiculeId(donnees) {
+    let headers = new Headers();
+    headers.append('Accept', 'application/json');
+    headers.append('Content-Type', 'application/json');
+    let options = new RequestOptions({headers: headers});
+    let body = donnees
+
+    return new Promise((succes, failed)=>{
+        this.http.post(maconfig.findAllClientByVehiculeId, body, options).subscribe(data => {
           succes(data.json());
         }, error => {
               console.log(error);

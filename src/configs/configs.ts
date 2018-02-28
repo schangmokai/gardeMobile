@@ -9,5 +9,6 @@ export const maconfig = {
     'listesUserEnDanger':'http://localhost:8085/api/utilisateurs/listesUserEnDanger',
     'imagesUsers':'http://localhost/Garde/Images/',
     'Imagechauffeur':'http://localhost/Garde/ImageChauffeur/',
-    'imagesVehicule':'http://localhost/Garde/ImagesVehicule/'
+    'imagesVehicule':'http://localhost/Garde/ImagesVehicule/',
+    'findAllClientByVehiculeId': 'http://localhost:8085/api/findAllClientByVehiculeId'
 }

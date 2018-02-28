@@ -83,14 +83,21 @@ export class HomePage {
   public task: any;
   public that: any;
   public valideur: any;
+  public vehiculeId: any;
+  public chauffeurId:any;
+  public utilisateurId:any;
+  public listesclients: any;
+  public nombredeclients: any;
   socket:any
 
   public imagechauffeur: any;
+  public imagesUsers:any;
 
   constructor(public nav: NavController, public platform: Platform, public alertCtrl: AlertController, private barcodeScanner: BarcodeScanner, private geolocation: Geolocation, public http: Http, public loadingCtrl: LoadingController, public homeService: HomeService, public navParams: NavParams) {
      this.myid = this.navParams.get('id');
      this.status = this.navParams.get('status');
-     this.imagechauffeur = maconfig.Imagechauffeur
+     this.imagechauffeur = maconfig.Imagechauffeur;
+     this.imagesUsers = maconfig.imagesUsers;
      this.hometest = 1;
      this.http = http;
      this.that = 0;
@@ -114,7 +121,6 @@ export class HomePage {
 
 
   participezAlaDiscussion(){
-
     let alert2 = this.alertCtrl.create({
           title: 'Alerte Rouge',
           message: 'Vollez vous Paricipez à cette Recherche ?',
@@ -147,8 +153,6 @@ export class HomePage {
 
               }
             }
-
-
           ]
         });
 
@@ -170,7 +174,16 @@ export class HomePage {
                 "minute": minute
               };
 
-              this.homeService.insertPosition(body);
+            this.homeService.insertPosition(body).then( (resp) =>{
+                  
+            }).catch( (error) =>{    
+                 console.log()
+            });
+
+            //this.homeService.insertPosition(body);
+
+
+
 
       }).catch( (error) =>{
                
@@ -199,8 +212,8 @@ export class HomePage {
 
               this.http.post(maconfig.findChauffeurByCodeVehicule, body, options)
                 .subscribe(data => {
-                  
                    this.listesutilisateurs = data.json();
+                   this.vehiculeId = this.listesutilisateurs[0].vehicule.id;
                    this.hometest = 0;
                    loading.dismissAll();
                 }, error => {
@@ -262,7 +275,16 @@ allezchater(){
                   "id": this.myid
                 };
 
-            this.homeService.signalerdanger(body);
+
+            this.homeService.signalerdanger(body).then( (resp) =>{
+                  
+             }).catch( (error) =>{    
+                console.log()
+             });
+
+            //this.homeService.signalerdanger(body);
+
+
 
               this.task = setInterval((function () {
 
@@ -326,51 +348,73 @@ allezchater(){
 
  }
 
-  confirmerForme(element) {
+  entreeDansLaVoiture(){
 
-     /* this.task = setInterval((function () {
-          this.recuperationCoordone();
-      }).bind(this), 5000);*/
+       /* this.task = setInterval((function () {
+            this.recuperationCoordone();
+        }).bind(this), 5000);*/
 
-      this.task = setInterval((function () {
-          if(this.that==0){
-             console.log("this.that = " + this.that)
-             this.validerSecurite();
-          } 
-      }).bind(this), 10000);
-      
-
-      let body = {
-        "vehiculeId": element.vehicule.id,
-        "chauffeurId": element.chauffeur.id,
-        "utilisateurId": this.myid
-      };
-
-
-      this.homeService.saveClientVehicule(body);
-
-
-      /*setTimeout(() => {
-        this.that = 50;
-        console.log("le moaki");
-      }, 1000);
-
-      setTimeout(() => {
-        this.that = 9000;
-        console.log("le pros lexus");
-      }, 3000);
-
-      this.task = setInterval((function () {
-         if(this.that<10000){
-           console.log(this.that);
-         }
-      }).bind(this), 1000);*/
-
+        this.task = setInterval((function () {
+            if(this.that==0){
+               console.log("this.that = " + this.that)
+               this.validerSecurite();
+            } 
+        }).bind(this), 10000);
         
+
+        let body = {
+          "vehiculeId": this.vehiculeId,
+          "chauffeurId": this.chauffeurId,
+          "utilisateurId": this.myid
+        };
+
+         this.homeService.saveClientVehicule(body).then( (resp) =>{
+                  
+         }).catch( (error) =>{    
+            console.log()
+         });
+
+        //this.homeService.saveClientVehicule(body);
+
+        /*setTimeout(() => {
+          this.that = 50;
+          console.log("le moaki");
+        }, 1000);
+
+        setTimeout(() => {
+          this.that = 9000;
+          console.log("le pros lexus");
+        }, 3000);
+
+        this.task = setInterval((function () {
+           if(this.that<10000){
+             console.log(this.that);
+           }
+        }).bind(this), 1000);*/
   }
 
+  confirmerForme(element){
 
+      this.imagesUsers = this.imagesUsers;
+      this.hometest = 2;
+      this.chauffeurId = element.vehicule.id;
+      this.utilisateurId = element.chauffeur.id;
+      // nous lons rechercher tous les client de cette voiture
+      
+      let body = {
+          "vehiculeId": this.vehiculeId,
+          "chauffeurId": this.chauffeurId
+      };
 
+      this.homeService.findAllClientByVehiculeId(body).then( (resp) =>{
+            this.listesclients = resp; 
+            console.log(this.listesclients.length);
+            this.nombredeclients = this.listesclients.length;
+      }).catch( (error) =>{    
+          console.log()
+      });
+
+  }
 
   // toggle active vehicle
   toggleVehicle(index) {
