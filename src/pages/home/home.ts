@@ -189,18 +189,11 @@ export class HomePage {
                
        console.log()});
   }
-
-  toggleForm() {
-
-    //this.showForm = !this.showForm;
-    //this.showModalBg = (this.showForm == true);
-
-    //this.barcodeScanner.scan().then((barcodeData) =>{
-              //alert(barcodeData.text);
-              //this.hometest = 0;
-              let headers = new Headers();
-              headers.append('Accept', 'application/json');
-              headers.append('Content-Type', 'application/json');
+  scanQRCode(){
+    this.barcodeScanner.scan().then((barcodeData) =>{
+      let headers = new Headers();
+      headers.append('Accept', 'application/json');
+      headers.append('Content-Type', 'application/json');
               let options = new RequestOptions({headers: headers});
               
               let body = {
@@ -225,13 +218,13 @@ export class HomePage {
                 this.task = setInterval((function () {
                    // this.recuperationCoordone();
                 }).bind(this), 5000);
-
-
-
-            /*  }, (err) => {
-                    alert(err);
-          });*/
-
+    }, (err) => {
+      alert(err);
+    });
+  }
+  toggleForm() {
+    this.showForm = !this.showForm;
+    this.showModalBg = (this.showForm == true);
   }
 
 
