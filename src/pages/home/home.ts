@@ -70,7 +70,7 @@ export class HomePage {
   ]
 
   // Note to driver
-  public note: any;
+public note: any;
 
   // Promo code
   public promo: any;
@@ -88,6 +88,7 @@ export class HomePage {
   public utilisateurId:any;
   public listesclients: any;
   public nombredeclients: any;
+  public timing: any;
   socket:any
 
   public imagechauffeur: any;
@@ -96,13 +97,16 @@ export class HomePage {
   constructor(public nav: NavController, public platform: Platform, public alertCtrl: AlertController, private barcodeScanner: BarcodeScanner, private geolocation: Geolocation, public http: Http, public loadingCtrl: LoadingController, public homeService: HomeService, public navParams: NavParams) {
      this.myid = this.navParams.get('id');
      this.status = this.navParams.get('status');
+     this.timing = this.navParams.get('timing');
      this.imagechauffeur = maconfig.Imagechauffeur;
      this.imagesUsers = maconfig.imagesUsers;
      this.hometest = 1;
      this.http = http;
      this.that = 0;
      this.socket = io(maconfig.socketadresse);
+
      // en cas d'alerte alors la possibilité de chat s'impose a tous les utilisteur connecté
+     // tous les utilisateur connecté et a proximité vons recevoir les les notifications
      this.valideur = 0;
      this.socket.on('alert', (msg) => {
         if((msg.id_emetteur!= this.myid)&&(this.valideur == 0)){
@@ -148,7 +152,7 @@ export class HomePage {
                         });
                     });*/
 
-                    this.allezchater();
+                    this.visualiserlespersonneendanger();
                 });
 
               }
@@ -160,8 +164,10 @@ export class HomePage {
   }
 
 
-  recuperationCoordone(){
+// cette fonctons permettra une fois que l'utilisateur aura scané le code du taxis de récupérer 
+// toutes les minutes la possition de l'utilisateur es stoké au serveur
 
+  recuperationCoordone(){
      this.geolocation.getCurrentPosition().then( (resp) =>{
               let now = new Date();
               var heure = now.getHours();
@@ -177,18 +183,17 @@ export class HomePage {
             this.homeService.insertPosition(body).then( (resp) =>{
                   
             }).catch( (error) =>{    
-                 console.log()
+                 console.log("could not get location");
             });
 
             //this.homeService.insertPosition(body);
-
-
-
-
       }).catch( (error) =>{
                
        console.log()});
   }
+
+
+ //cette fonction nous permet de lancer le scan du code d'un taxis
 
   toggleForm() {
 
@@ -221,7 +226,10 @@ export class HomePage {
                   loading.dismissAll();
                 });
 
-         
+                // une fois le code bien scaner, le processus permettant de récupérer la position de notre client
+                // toutes les 5 seconde est lancé automatiquement et la position du client est stoké en temps réel dans notre 
+                // base de données
+
                 this.task = setInterval((function () {
                    // this.recuperationCoordone();
                 }).bind(this), 5000);
@@ -234,23 +242,19 @@ export class HomePage {
 
   }
 
+ // l'appel de cette fonction nous permettra de visualiser toutes les personne en dangé dans 
+ // votre rayon d'intervantion
 
-allezchater(){
-
-
+  visualiserlespersonneendanger(){
     this.nav.setRoot('UserdangersPage',{
       id: this.myid,
       status: this.status
     });
-    
-
-    /*this.nav.setRoot('ChatPage',{
-       id: this.myid,
-       status: this.status
-    });*/
 }
 
 
+
+// validation de la sécurité d'un utilisateur une fois que l'alerte lui est présenté 
 
  validerSecurite(){
 
@@ -265,15 +269,21 @@ allezchater(){
         // apres 20 secondes si le monsieur n'a pas valide
         
         console.log("this.that dans la GF = " + this.that)
+
         setTimeout(() => {
+
+          // si après 20 seconde in n'a pas validé la sécurité alors cette valeur est la pour confirmer que réelement la securité n'est pas validé
+          // dès que l'utilisateur clique sur ok avec sont code correct alors this.that passe a 0
+
           if(this.that == 10){
             // alerte au serveur
               
               // pour la premiere fois nous allons modifier un attribut de l'utilisateur en danger et envoyer sa position a la police toutes les 5 secondes
               // l'attribut danger de l'utilisateur passe a un pour dire qui l'utilisateur est en danger
-               let body = {
+               
+              let body = {
                   "id": this.myid
-                };
+              };
 
 
             this.homeService.signalerdanger(body).then( (resp) =>{
@@ -284,27 +294,32 @@ allezchater(){
 
             //this.homeService.signalerdanger(body);
 
+                 
+
+                this.task = setInterval((function () {
+
+                    this.geolocation.getCurrentPosition().then( (resp) =>{ 
+                     
+                        console.log("alert au serveur");
 
 
-              this.task = setInterval((function () {
-
-                this.geolocation.getCurrentPosition().then( (resp) =>{ 
-               
-                  console.log("alert au serveur");
-
-
-                  this.socket.emit('alert', {lat : resp.coords.latitude, lon : resp.coords.longitude, id_emetteur: this.myid, status: this.status})
-                  this.that = 50;
+                    this.socket.emit('alert', {lat : resp.coords.latitude, lon : resp.coords.longitude, id_emetteur: this.myid, status: this.status})
+                    this.that = 50;
+                   
                  }).catch( (error) =>{   
-                  console.log()
+                  console.log("error")
                  });
+
               }).bind(this), 1000);
+              
            }
            
         }, 20000);
 
 
-        let alert = this.alertCtrl.create({
+
+
+      let alert = this.alertCtrl.create({
 
           title: 'Confirmer Security',
 
@@ -333,6 +348,8 @@ allezchater(){
                 console.log(data.code);
                 this.that = 0;
                 console.log("c bon il a confirmé")
+
+
                 /*if () {
                   // logged in!
                 } else {
@@ -347,6 +364,12 @@ allezchater(){
         alert.present();
 
  }
+
+
+
+  // permet a un utilisateur après avoir visualisé tous les client du taxis d'entrer dans le taxis
+  // le compte a rebour est lancé pour valider sa sécurité
+  // au même moment vous êtes enregistré comme client dans ladite voiture 
 
   entreeDansLaVoiture(){
 
@@ -393,6 +416,8 @@ allezchater(){
         }).bind(this), 1000);*/
   }
 
+  // cette fonction nous permet de rechercher tous les clients qui sont dans un vehicule a un moment données 
+
   confirmerForme(element){
 
       this.imagesUsers = this.imagesUsers;
@@ -415,6 +440,10 @@ allezchater(){
       });
 
   }
+
+
+
+  
 
   // toggle active vehicle
   toggleVehicle(index) {

@@ -58,7 +58,6 @@ export class ChatPage {
 
 
   send(msg) {
-
         if(msg != ''){
             this.socket.emit('chat-message', { message: msg, id_emetteur: this.myid});
             this.socket.emit('stop-typing', { message: msg});

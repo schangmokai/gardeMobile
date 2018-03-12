@@ -18,15 +18,20 @@ import {HomeService} from '../services/home-service';
 import {TripService} from '../services/trip-service';
 import {ConnectivityService} from '../services/connectivity-service';
 import {TrackingpoliceService} from '../services/trackingpolice-service';
+import {UserConnecteService} from '../services/userConnecte-service';
+
 
 
 // end import services
 
 // import pages
+
 import {DriverPage} from '../pages/driver/driver';
 import {FindingPage} from '../pages/finding/finding';
 import {HistoryPage} from '../pages/history/history';
 import {LoginPage} from '../pages/login/login';
+import {ContratlicencePage} from '../pages/contratlicence/contratlicence';
+
 import {ModalRatingPage} from '../pages/modal-rating/modal-rating';
 import {NotificationPage} from '../pages/notification/notification';
 import {PaymentMethodPage} from '../pages/payment-method/payment-method';
@@ -34,6 +39,7 @@ import {PlacesPage} from '../pages/places/places';
 import {ProfilePage} from '../pages/profile/profile';
 import {RegisterPage} from '../pages/register/register';
 import {SupportPage} from '../pages/support/support';
+import {SettingsPage} from '../pages/settings/settings';
 import {TrackingPage} from '../pages/tracking/tracking';
 import { HttpModule } from '@angular/http';
 // end import pages
@@ -45,6 +51,7 @@ import { HttpModule } from '@angular/http';
     FindingPage,
     HistoryPage,
     LoginPage,
+    ContratlicencePage,
     ModalRatingPage,
     NotificationPage,
     PaymentMethodPage,
@@ -52,6 +59,7 @@ import { HttpModule } from '@angular/http';
     ProfilePage,
     RegisterPage,
     SupportPage,
+    SettingsPage,
     TrackingPage
   ],
   imports: [
@@ -66,12 +74,14 @@ import { HttpModule } from '@angular/http';
     FindingPage,
     HistoryPage,
     LoginPage,
+    ContratlicencePage,
     ModalRatingPage,
     NotificationPage,
     PaymentMethodPage,
     PlacesPage,
     ProfilePage,
     RegisterPage,
+    SettingsPage,
     SupportPage,
     TrackingPage
   ],
@@ -89,7 +99,8 @@ import { HttpModule } from '@angular/http';
     Media,
     File,
     Network,
-    ConnectivityService
+    ConnectivityService,
+    UserConnecteService
 
     /* import services */
   ]

@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController } from 'ionic-angular';
+import { NavController, LoadingController, AlertController } from 'ionic-angular';
 import {RegisterPage} from '../register/register';
 import {Http, Headers, RequestOptions } from '@angular/http';
 import { maconfig } from '../../configs/configs';
+import { UserConnecteService } from '../../services/userConnecte-service';
 //import {HomePage} from '../home/home'
 
 /*
@@ -19,11 +20,8 @@ export class LoginPage {
 
     utilisateur = {};
 
-    constructor(public nav: NavController, public http: Http, public loadingCtrl: LoadingController) {
-      
-
+    constructor(public nav: NavController, public http: Http, public loadingCtrl: LoadingController, private alertCtrl: AlertController, private userconnecteService: UserConnecteService) {
       this.http = http;
-
       /*this.http.get('http://localhost:8085/api/chauffeurs/listes').subscribe(data => {
           console.log(data['_body']);
        }, error => {
@@ -56,12 +54,19 @@ export class LoginPage {
              if(result.code == "400"){
 
                    //this.nav.setRoot('OuestilPage');
+                   // si après le login il s'agis d'un utilisateur simple alors il est redirigé vers home page ou il pourras pouras 
+                   // librement scanner le code d'un taxis pour assurer sa sécurité
+                   
+                   this.userconnecteService.setParameterUser(result.id,result.status,5);
+                   
                    if(result.status==1){
+
                      this.nav.setRoot('HomePage',{
                         id: result.id,
                         status: result.status
                      });
-                 
+                     
+                 // dans le cas contraire in s'agit d'un policier qui lui iras voir la liste des personne en dangé
                     }else{
 
                        this.nav.setRoot('UserdangersPage',{
@@ -70,11 +75,17 @@ export class LoginPage {
                        });
                        
                     }
-
-
                    loading.dismissAll();
 
              }else{
+                 // dans le cas ou le login ou le password est incorrect
+                  let alert = this.alertCtrl.create({
+                    title:'error',
+                    subTitle: 'login ou mot passord incorrect',
+                    buttons: ['OK']
+                  });
+
+                  alert.present();
 
                   this.nav.setRoot(LoginPage);
                   loading.dismissAll();
@@ -83,8 +94,6 @@ export class LoginPage {
             console.log(error);
             loading.dismissAll();
           });
-       
-        //this.nav.setRoot('HomePage');
 
     }
 

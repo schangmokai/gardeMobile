@@ -4,12 +4,14 @@ import {ViewChild} from '@angular/core';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 
-// import pages
+// import pages 
 import {LoginPage} from '../pages/login/login';
+import {ContratlicencePage} from '../pages/contratlicence/contratlicence';
 import {HomePage} from '../pages/home/home';
 import {HistoryPage} from '../pages/history/history';
 import {NotificationPage} from '../pages/notification/notification';
 import {SupportPage} from '../pages/support/support';
+import {SettingsPage} from '../pages/settings/settings';
 
 @Component({
   templateUrl: 'app.html',
@@ -49,6 +51,12 @@ export class MyApp {
       component: SupportPage
     },
     {
+      title: 'Settings',
+      icon: 'ios-settings-outline',
+      count: 0,
+      component: SettingsPage
+    },
+    {
       title: 'Logout',
       icon: 'ios-log-out-outline',
       count: 0,
@@ -57,7 +65,7 @@ export class MyApp {
   ];
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
-    this.rootPage = LoginPage;
+    this.rootPage = ContratlicencePage;
 
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
