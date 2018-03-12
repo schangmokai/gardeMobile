@@ -194,8 +194,8 @@ public note: any;
 
 
  //cette fonction nous permet de lancer le scan du code d'un taxis
-
-  toggleForm() {
+ 
+ scanQRCode() {
 
     //this.showForm = !this.showForm;
     //this.showModalBg = (this.showForm == true);
@@ -241,6 +241,13 @@ public note: any;
           });*/
 
   }
+
+ 
+  toggleForm(){
+     this.showForm = !this.showForm;
+     this.showModalBg = (this.showForm == true);
+  }
+
 
  // l'appel de cette fonction nous permettra de visualiser toutes les personne en dangé dans 
  // votre rayon d'intervantion
