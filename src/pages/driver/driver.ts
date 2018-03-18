@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { DriverService } from '../../services/driver-service';
-import { TrackingPage } from '../tracking/tracking';
 
 /*
   Generated class for the DriverPage page.
@@ -22,6 +21,6 @@ export class DriverPage {
   }
 
   track() {
-    this.nav.setRoot(TrackingPage);
+    this.nav.setRoot('TrackingPage');
   }
 }

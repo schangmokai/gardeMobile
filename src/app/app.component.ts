@@ -6,12 +6,6 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 
 // import pages 
 import {LoginPage} from '../pages/login/login';
-import {ContratlicencePage} from '../pages/contratlicence/contratlicence';
-import {HomePage} from '../pages/home/home';
-import {HistoryPage} from '../pages/history/history';
-import {NotificationPage} from '../pages/notification/notification';
-import {SupportPage} from '../pages/support/support';
-import {SettingsPage} from '../pages/settings/settings';
 
 @Component({
   templateUrl: 'app.html',
@@ -30,42 +24,42 @@ export class MyApp {
       title: 'Home',
       icon: 'ios-home-outline',
       count: 0,
-      component: HomePage
+      component: 'HomePage'
     },
     {
       title: 'History',
       icon: 'ios-time-outline',
       count: 0,
-      component: HistoryPage
+      component: 'HistoryPage'
     },
     {
       title: 'Notification',
       icon: 'ios-notifications-outline',
       count: 2,
-      component: NotificationPage
+      component: 'NotificationPage'
     },
     {
       title: 'Support',
       icon: 'ios-help-circle-outline',
       count: 0,
-      component: SupportPage
+      component: 'SupportPage'
     },
     {
       title: 'Settings',
       icon: 'ios-settings-outline',
       count: 0,
-      component: SettingsPage
+      component: 'SettingsPage'
     },
     {
       title: 'Logout',
       icon: 'ios-log-out-outline',
       count: 0,
-      component: LoginPage
+      component: 'LoginPage'
     }
   ];
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
-    this.rootPage = ContratlicencePage;
+    this.rootPage = 'ContratlicencePage';
 
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.

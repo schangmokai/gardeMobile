@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import {NavController} from 'ionic-angular';
-import {LoginPage} from '../login/login';
+import {IonicPage} from 'ionic-angular';
 
+@IonicPage()
 @Component({
   templateUrl: 'contratlicence.html'
 })
@@ -30,7 +31,7 @@ export class ContratlicencePage {
   ];
 
   login(){
-    this.nav.setRoot(LoginPage);
+    this.nav.setRoot('LoginPage');
   }
 
 }

@@ -1,20 +1,18 @@
 import {NgModule} from '@angular/core';
 import {IonicPageModule} from 'ionic-angular';
-import {SettingsPage} from './settings';
-//import { LocalNotifications } from '@ionic-native/local-notifications';
+import {PlacesPage} from './places';
 import { TranslateModule } from 'ng2-translate';
-
 
 @NgModule({
   declarations: [
-    SettingsPage
+    PlacesPage
   ],
   imports: [
-    IonicPageModule.forChild(SettingsPage),
+    IonicPageModule.forChild(PlacesPage),
     TranslateModule
   ],
   providers: [
    // LocalNotifications
   ]
 })
-export class SettingsPageModule {}
+export class PlacesPageModule {}

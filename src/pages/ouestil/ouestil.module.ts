@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {IonicPageModule} from 'ionic-angular';
 import {OuestilPage} from './ouestil';
-//import { LocalNotifications } from '@ionic-native/local-notifications';
+import { TranslateModule } from 'ng2-translate';
 
 
 @NgModule({
@@ -9,10 +9,11 @@ import {OuestilPage} from './ouestil';
     OuestilPage
   ],
   imports: [
-    IonicPageModule.forChild(OuestilPage)
+    IonicPageModule.forChild(OuestilPage),
+    TranslateModule
   ],
   providers: [
    // LocalNotifications
   ]
 })
-export class HomePageModule {}
+export class OuestilPageModule {}

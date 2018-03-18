@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {IonicPageModule} from 'ionic-angular';
 import {HomePage} from './home';
 //import { LocalNotifications } from '@ionic-native/local-notifications';
+import { TranslateModule } from 'ng2-translate';
 
 
 @NgModule({
@@ -9,7 +10,8 @@ import {HomePage} from './home';
     HomePage
   ],
   imports: [
-    IonicPageModule.forChild(HomePage)
+    IonicPageModule.forChild(HomePage),
+    TranslateModule
   ],
   providers: [
    // LocalNotifications

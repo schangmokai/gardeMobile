@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {IonicPageModule} from 'ionic-angular';
 import {ChatPage} from './chat';
+import { TranslateModule } from 'ng2-translate';
 
 
 @NgModule({
@@ -8,7 +9,8 @@ import {ChatPage} from './chat';
     ChatPage
   ],
   imports: [
-    IonicPageModule.forChild(ChatPage)
+    IonicPageModule.forChild(ChatPage),
+    TranslateModule
   ],
   providers: [
     

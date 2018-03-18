@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController} from 'ionic-angular';
-import {LoginPage} from '../login/login';
-import {HomePage} from '../home/home';
 import {ProfilePage} from '../profile/profile';
 
 //import {HomePage} from "../home/home";
@@ -29,7 +27,7 @@ export class RegisterPage {
       signup(utilisateur) {
          //console.log(utilisateur);
          
-         this.nav.push(ProfilePage, {
+         this.nav.push('ProfilePage', {
               name: utilisateur.name,
               password: utilisateur.password
          });
@@ -38,7 +36,7 @@ export class RegisterPage {
       }
 
       login() {
-        this.nav.setRoot(LoginPage);
+        this.nav.setRoot('LoginPage');
       }
 
 
@@ -48,7 +46,7 @@ export class RegisterPage {
 
 
       confirmer(utilisateur){
-           this.nav.setRoot(HomePage);
+           this.nav.setRoot('HomePage');
           /*
           this.nav.push(HomePage, {
               name: utilisateur.name,

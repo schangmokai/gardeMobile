@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, LoadingController, AlertController } from 'ionic-angular';
-import {RegisterPage} from '../register/register';
 import {Http, Headers, RequestOptions } from '@angular/http';
 import { maconfig } from '../../configs/configs';
 import { UserConnecteService } from '../../services/userConnecte-service';
@@ -30,7 +29,7 @@ export class LoginPage {
     }
 
     signup() {
-      this.nav.setRoot(RegisterPage);
+      this.nav.setRoot('RegisterPage');
     }
 
     login(utilisateur) {

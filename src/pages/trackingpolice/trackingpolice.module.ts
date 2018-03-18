@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {IonicPageModule} from 'ionic-angular';
 import {TrackingpolicePage} from './trackingpolice';
 //import { LocalNotifications } from '@ionic-native/local-notifications';
+import { TranslateModule } from 'ng2-translate';
 
 
 @NgModule({
@@ -9,7 +10,8 @@ import {TrackingpolicePage} from './trackingpolice';
     TrackingpolicePage
   ],
   imports: [
-    IonicPageModule.forChild(TrackingpolicePage)
+    IonicPageModule.forChild(TrackingpolicePage),
+    TranslateModule
   ],
   providers: [
    // LocalNotifications

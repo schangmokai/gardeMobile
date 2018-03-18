@@ -3,9 +3,6 @@ import {IonicPage} from 'ionic-angular';
 import {NavController, Platform, AlertController, NavParams, LoadingController} from 'ionic-angular';
 import {BarcodeScanner} from '@ionic-native/barcode-scanner';
 import {Geolocation} from '@ionic-native/geolocation';
-import {PlacesPage} from '../places/places';  
-import {PaymentMethodPage} from '../payment-method/payment-method';
-import {FindingPage} from "../finding/finding";
 //import {Http} from '@angular/http';
 import {Http, Headers, RequestOptions } from '@angular/http';
 declare var google: any;
@@ -15,7 +12,6 @@ import { maconfig } from '../../configs/configs';
 //import { File } from '@ionic-native/file';
 //import { LocalNotifications } from '@ionic-native/local-notifications';
 import * as io from 'socket.io-client';
-
 
 /*
  Generated class for the HomePage page.
@@ -587,18 +583,18 @@ public note: any;
     this.toggleForm();
 
     // go to finding page
-    this.nav.push(FindingPage);
+    this.nav.push('FindingPage');
   }
 
   // choose pickup place
   choosePlace() {
     // go to places page
-    this.nav.push(PlacesPage);
+    this.nav.push('PlacesPage');
   }
 
   // choose payment method
   choosePaymentMethod() {
     // go to payment method page
-    this.nav.push(PaymentMethodPage);
+    this.nav.push('PaymentMethodPage');
   }
 }
