@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
+import {IonicPage} from 'ionic-angular';
 import {NavController} from 'ionic-angular';
 import { UserConnecteService } from '../../services/userConnecte-service';
 
 
+@IonicPage()
 @Component({
   templateUrl: 'settings.html'
 })
-
-
 export class SettingsPage {
 
     public conseils: any;

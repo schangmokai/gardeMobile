@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {IonicPage} from 'ionic-angular';
 import { NavController } from 'ionic-angular';
 import { TripService } from '../../services/trip-service';
 
@@ -8,6 +9,7 @@ import { TripService } from '../../services/trip-service';
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 */
+@IonicPage()
 @Component({
   selector: 'page-history',
   templateUrl: 'history.html'

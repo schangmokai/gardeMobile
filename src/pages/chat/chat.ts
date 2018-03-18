@@ -3,7 +3,6 @@ import {IonicPage} from 'ionic-angular';
 import { NavController, NavParams} from 'ionic-angular';
 import * as io from 'socket.io-client';
 
-
 @IonicPage()
 @Component({
   selector: 'page-chat',

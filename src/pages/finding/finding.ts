@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
+import {IonicPage} from 'ionic-angular';
 import { NavController } from 'ionic-angular';
 import { DriverService } from '../../services/driver-service';
-import { DriverPage } from '../driver/driver';
 
 /*
   Generated class for the FindingPage page.
@@ -9,6 +9,7 @@ import { DriverPage } from '../driver/driver';
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 */
+@IonicPage()
 @Component({
   selector: 'page-finding',
   templateUrl: 'finding.html'
@@ -21,7 +22,7 @@ export class FindingPage {
     this.drivers = driverService.getAll();
 
     setTimeout(() => {
-      this.nav.push(DriverPage)
+      this.nav.push('DriverPage')
     }, 5000)
   }
 }

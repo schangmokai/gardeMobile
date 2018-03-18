@@ -1,4 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
+import {IonicPage} from 'ionic-angular';
 import { NavController } from 'ionic-angular';
 declare var google: any;
 import {Geolocation} from '@ionic-native/geolocation';

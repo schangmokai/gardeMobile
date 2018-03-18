@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
+import {IonicPage} from 'ionic-angular';
 import { NavController, LoadingController, AlertController } from 'ionic-angular';
 import {Http, Headers, RequestOptions } from '@angular/http';
 import { maconfig } from '../../configs/configs';
 import { UserConnecteService } from '../../services/userConnecte-service';
-//import {HomePage} from '../home/home'
 
 /*
   Generated class for the LoginPage page.
@@ -11,6 +11,7 @@ import { UserConnecteService } from '../../services/userConnecte-service';
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 */
+@IonicPage()
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'

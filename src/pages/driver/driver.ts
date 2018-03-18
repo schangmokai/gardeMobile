@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {IonicPage} from 'ionic-angular';
 import { NavController } from 'ionic-angular';
 import { DriverService } from '../../services/driver-service';
 
@@ -8,6 +9,7 @@ import { DriverService } from '../../services/driver-service';
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 */
+@IonicPage()
 @Component({
   selector: 'page-driver',
   templateUrl: 'driver.html'

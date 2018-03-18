@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
+import {IonicPage} from 'ionic-angular';
 import { NavController, Platform, AlertController } from 'ionic-angular';
 import { DriverService } from '../../services/driver-service';
-import { HomePage } from "../home/home";
 declare var google: any;
 
 /*
@@ -10,6 +10,7 @@ declare var google: any;
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 */
+@IonicPage()
 @Component({
   selector: 'page-tracking',
   templateUrl: 'tracking.html'
@@ -94,14 +95,14 @@ export class TrackingPage {
           text: 'Cancel',
           handler: data => {
             console.log('Cancel clicked');
-            this.nav.setRoot(HomePage);
+            this.nav.setRoot('HomePage');
           }
         },
         {
           text: 'Submit',
           handler: data => {
             console.log('Saved clicked');
-            this.nav.setRoot(HomePage);
+            this.nav.setRoot('HomePage');
           }
         }
       ]

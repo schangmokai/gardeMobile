@@ -3,7 +3,6 @@ import {IonicPageModule} from 'ionic-angular';
 import {DriverPage} from './driver';
 import { TranslateModule } from 'ng2-translate';
 
-
 @NgModule({
   declarations: [
     DriverPage
