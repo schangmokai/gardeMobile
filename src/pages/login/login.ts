@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import {IonicPage} from 'ionic-angular';
-import { NavController, LoadingController, AlertController } from 'ionic-angular';
+import { NavController, LoadingController, AlertController, ToastController } from 'ionic-angular';
 import {Http, Headers, RequestOptions } from '@angular/http';
 import { maconfig } from '../../configs/configs';
 import { UserConnecteService } from '../../services/userConnecte-service';
+import {TranslateService} from "ng2-translate/src/translate.service";
 
 /*
   Generated class for the LoginPage page.
@@ -20,7 +21,7 @@ export class LoginPage {
 
     utilisateur = {};
 
-    constructor(public nav: NavController, public http: Http, public loadingCtrl: LoadingController, private alertCtrl: AlertController, private userconnecteService: UserConnecteService) {
+    constructor(public nav: NavController, public translate:TranslateService,public http: Http, public toastCtrl:ToastController, public loadingCtrl: LoadingController, private alertCtrl: AlertController, private userconnecteService: UserConnecteService) {
       this.http = http;
       /*this.http.get('http://localhost:8085/api/chauffeurs/listes').subscribe(data => {
           console.log(data['_body']);
@@ -79,22 +80,30 @@ export class LoginPage {
 
              }else{
                  // dans le cas ou le login ou le password est incorrect
+                 this.translate.get(['error','login ou mot passord incorrect', 'OK']).subscribe((langs:Array<string>) => {
                   let alert = this.alertCtrl.create({
-                    title:'error',
-                    subTitle: 'login ou mot passord incorrect',
-                    buttons: ['OK']
+                    title:langs['error'],
+                    subTitle: langs['login ou mot passord incorrect'],
+                    buttons: [langs['OK']]
                   });
 
                   alert.present();
 
                   this.nav.setRoot(LoginPage);
                   loading.dismissAll();
+                });
              }
           }, error => {
-            console.log(error);
             loading.dismissAll();
+            this.translate.get(['No connection']).subscribe((langs:Array<string>) => {
+                let toast = this.toastCtrl.create({
+                  message: langs['No connection'],
+                    duration: 3000,
+                    position: 'bottom'
+                });
+                toast.present();
+            });   
           });
-
     }
 
 

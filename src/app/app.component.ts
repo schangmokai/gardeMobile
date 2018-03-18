@@ -3,9 +3,8 @@ import {Platform} from 'ionic-angular';
 import {ViewChild} from '@angular/core';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
-
-// import pages 
-import {LoginPage} from '../pages/login/login';
+import {LanguageService} from '../services/language';
+import {TranslateService} from "ng2-translate/src/translate.service";
 
 @Component({
   templateUrl: 'app.html',
@@ -58,14 +57,17 @@ export class MyApp {
     }
   ];
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
-    this.rootPage = 'ContratlicencePage';
+  constructor(platform: Platform, statusBar: StatusBar, public translate:TranslateService, splashScreen: SplashScreen, public language:LanguageService) {
 
     platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      statusBar.styleDefault();
-      splashScreen.hide();
+      this.language.loadLanguage().then((lan:string)=>{
+        this.translate.setDefaultLang(lan);
+        this.rootPage = 'ContratlicencePage';
+        // Okay, so the platform is ready and our plugins are available.
+        // Here you can do any higher level native things you might need.
+        statusBar.styleDefault();
+        splashScreen.hide();
+      });
     });
   }
 

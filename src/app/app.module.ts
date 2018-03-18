@@ -9,6 +9,7 @@ import {Geolocation} from '@ionic-native/geolocation';
 import { Media} from '@ionic-native/media';
 import { File } from '@ionic-native/file';
 import { Network } from  '@ionic-native/network';
+import { IonicStorageModule } from '@ionic/storage';
 
 // import services
 import {DriverService} from '../services/driver-service';
@@ -19,6 +20,7 @@ import {TripService} from '../services/trip-service';
 import {ConnectivityService} from '../services/connectivity-service';
 import {TrackingpoliceService} from '../services/trackingpolice-service';
 import {UserConnecteService} from '../services/userConnecte-service';
+import {LanguageService} from '../services/language';
 
 // end import services
 import { HttpModule } from '@angular/http';
@@ -36,6 +38,7 @@ export function translateLoader(http: Http) { return new TranslateStaticLoader(h
   imports: [
     BrowserModule,
     HttpModule,
+    IonicStorageModule.forRoot(),
     TranslateModule.forRoot({
       provide: TranslateLoader,
       useFactory: translateLoader,
@@ -49,6 +52,7 @@ export function translateLoader(http: Http) { return new TranslateStaticLoader(h
   ],
   providers: [
     StatusBar,
+    Storage,
     SplashScreen,
     DriverService,
     NotificationService,
@@ -62,8 +66,8 @@ export function translateLoader(http: Http) { return new TranslateStaticLoader(h
     File,
     Network,
     ConnectivityService,
-    UserConnecteService
-
+    UserConnecteService,
+    LanguageService
     /* import services */
   ]
 })

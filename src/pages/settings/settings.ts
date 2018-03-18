@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import {IonicPage} from 'ionic-angular';
 import {NavController} from 'ionic-angular';
 import { UserConnecteService } from '../../services/userConnecte-service';
-
+import {LanguageService} from '../../services/language';
+import {LANG, Languages} from '../../configs/configs';
 
 @IonicPage()
 @Component({
@@ -12,8 +13,10 @@ export class SettingsPage {
 
     public conseils: any;
     public timing: any;
+    public languages:any = LanguageService;
+    public langue:string = LANG;
 
-    constructor(public nav: NavController , public userconnecte: UserConnecteService) {
+    constructor(public nav: NavController , public userconnecte: UserConnecteService, public language:LanguageService) {
         this.conseils = "vous allez recevoir des messages en fonctions de vos choix";
     }
 
@@ -43,6 +46,12 @@ export class SettingsPage {
             this.conseils = "conseil pour la selection des 25 minutes";
             this.timing = 25;
         }
+    }
+    
+    changeLanguage(e){
+        //console.log();
+        this.languageProvider.storeLanguage(this.langue).then((lan:string)=>{
+         console.log(lan)});
     }
 
     home(){

@@ -12,3 +12,10 @@ export const maconfig = {
     'imagesVehicule':'http://localhost/Garde/ImagesVehicule/',
     'findAllClientByVehiculeId': 'http://localhost:8085/api/findAllClientByVehiculeId'
 }
+export var Languages = [
+    {value:"fr", name:"francais"},
+    {value:"en", name:"anglais"}
+];
+export var LANG:any = {
+    value:"fr"
+};

@@ -17,9 +17,9 @@
           <i class="icon-sedan" ion-text color="light" ></i>
         </div>
         <h2 ion-text color="dark" >
-          Garde Mobile
+          {{'Garde Mobile' | translate}}
         </h2>
-        <p ion-text color="dark" >Application qui assure notre securite</p>
+        <p ion-text color="dark" >{{'Application qui assure notre securite' | translate}}</p>
       </div>
 
       <!-- Login form -->
@@ -27,18 +27,18 @@
       <ion-list class="list-form" padding>
 
         <ion-item>
-          <ion-input type="text" [(ngModel)]="utilisateur.username" placeholder="Email or username"></ion-input>
+          <ion-input type="text" [(ngModel)]="utilisateur.username" placeholder="{{'Email or username' | translate}}"></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-input type="password" [(ngModel)]="utilisateur.password" placeholder="Password"></ion-input>
+          <ion-input type="password" [(ngModel)]="utilisateur.password" placeholder="{{'Password' | translate}}"></ion-input>
         </ion-item>
 
       </ion-list>
 
       <div padding>
         <button  ion-button color="primary"  block (click)="login(utilisateur)">
-          Login
+          {{'Login' | translate}}
         </button>
       </div>
 
@@ -50,12 +50,12 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <span ion-text color="light" >Forgot password?</span>
+          <span ion-text color="light" >{{'Forgot password?' | translate}}</span>
         </ion-col>
         <ion-col>
           <span ion-text color="light" >
-            New here?
-            <span ion-text color="primary"  (click)="signup()">Sign up</span>
+            {{'New here?' | translate}}
+            <span ion-text color="primary"  (click)="signup()">{{'Sign up' | translate}}</span>
           </span>
         </ion-col>
       </ion-row>
