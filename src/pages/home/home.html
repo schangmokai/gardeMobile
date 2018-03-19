@@ -28,12 +28,12 @@
    <!--Choose pickup and drop off places-->
   <ion-list class="map-overlay list-full-border" *ngIf="hometest==1">
     <ion-item (click)="choosePlace()">
-      <span class="label" ion-text color="secondary" >PICK-UP</span>
+      <span class="label" ion-text color="secondary" >{{'PICK-UP' | translate}}</span>
       <div class="bold">Hanoi university of technology</div>
     </ion-item>
     <ion-item (click)="choosePlace()">
-      <span class="label" ion-text color="secondary" >DROP-OFF</span>
-      <div class="italic">Choose your drop-off</div>
+      <span class="label" ion-text color="secondary" >{{'DROP-OFF' | translate}}</span>
+      <div class="italic">{{'Choose your drop-off' | translate}}</div>
     </ion-item>
   </ion-list>
 
@@ -42,7 +42,7 @@
     <button ion-fab [hidden]="showForm" (click)="toggleForm()"><ion-icon name="book"></ion-icon></button>
   </ion-fab>
   <div class="booking-info" *ngIf="hometest==1">
-    <div padding [ngClass]="{'stable-bg': !showForm, 'light': showForm}">Choose your drop-off above</div>
+    <div padding [ngClass]="{'stable-bg': !showForm, 'light': showForm}">{{'Choose your drop-off above' | translate}}</div>
 
     <ion-grid no-padding [hidden]="showForm">
       <ion-row class="vehicles" text-center>
@@ -58,8 +58,8 @@
       <ion-item>
         <ion-icon name="cash" item-left></ion-icon>
         <div (click)="choosePaymentMethod()">
-          <div>Payment</div>
-          <span class="bold">Cash</span>
+          <div>{{'Payment' | translate}}</div>
+          <span class="bold">{{'Cash' | translate}}</span>
         </div>
         <ion-icon name="md-arrow-dropright" item-right></ion-icon>
       </ion-item>
@@ -70,11 +70,11 @@
           <ion-row>
 
             <ion-col>
-              <button  ion-button class="active" block padding>Pick-up Now</button>
+              <button  ion-button class="active" block padding>{{'Pick-up Now' | translate}}</button>
             </ion-col>
 
             <ion-col>
-              <button  ion-button block>Pick-up Later</button>
+              <button  ion-button block>{{'Pick-up Later' | translate}}</button>
             </ion-col>
 
           </ion-row>
@@ -84,91 +84,16 @@
 
       <ion-item (click)="showNotePopup()">
         <ion-icon name="ios-create-outline" item-left></ion-icon>
-        <span class="italic" ion-text color="dark"  [hidden]="note">Notes to driver</span>
+        <span class="italic" ion-text color="dark"  [hidden]="note">{{'Notes to driver' | translate}}</span>
         <span ion-text color="dark"  [hidden]="!note">{{ note }}</span>
       </ion-item>
 
       <ion-item (click)="showPromoPopup()">
         <ion-icon name="pricetag" item-left></ion-icon>
-        <span class="italic" ion-text color="dark"  [hidden]="promo">Promo Code</span>
+        <span class="italic" ion-text color="dark"  [hidden]="promo">{{'Promo Code' | translate}}</span>
         <span ion-text color="dark"  [hidden]="!promo">{{ promo }}</span>
       </ion-item>
 
-      <button  ion-button color="primary"  block (click)="book()">BOOK</button>
+      <button  ion-button color="primary"  block (click)="book()">{{'BOOK' | translate}}</button>
     </ion-list>
-
   </div>
-
-
-<div  *ngIf="hometest==0">
-  
-  <ion-card *ngFor="let element of listesutilisateurs">
-  
-  <ion-item>
-    <ion-avatar item-start>
-  <img src="{{imagechauffeur}}{{element.chauffeur.photos}}">
-    </ion-avatar>
-    <h2>{{element.chauffeur.nom}}</h2>
-    <p>May 12, 1984</p>
-  </ion-item>
-
-  <img src="{{imagechauffeur}}{{element.chauffeur.photos}}">
-
-  <ion-card-content>
-    <p>DESCRIPTION CHAUFFEUR.</p>
-  </ion-card-content>
-
-  <ion-row>
-    <ion-col>
-      <button ion-button color="primary" (click)="confirmerForme(element)" clear small icon-start>
-        <ion-icon name='thumbs-up'></ion-icon>
-        confirm
-      </button>
-    </ion-col>
-    <!--<ion-col>
-      <button ion-button color="primary" clear small icon-start>
-        <ion-icon name='text'></ion-icon>
-        64 Comments
-      </button>
-    </ion-col>-->
-    <ion-col>
-      <button ion-button color="primary" clear small icon-start (click)="allezchater()">
-        <ion-icon name='text'></ion-icon>
-        chat
-      </button>
-    </ion-col>
-    
-  </ion-row>
-
-</ion-card>
-
-</div>
-
-  <div  *ngIf="hometest==2">
-        
-        <ion-card *ngFor="let element of listesclients">
-        
-            <ion-item>
-              <ion-avatar item-start>
-            <img src="{{imagesUsers}}{{element.utilisateur.image}}">
-              </ion-avatar>
-              <h2>{{element.utilisateur.nom}} {{element.utilisateur.prenom}} </h2>
-              <p>May 12, 1984</p>
-            </ion-item>
-
-            <img src="{{imagesUsers}}{{element.utilisateur.image}}">
-
-            <ion-card-content>
-              <p>DESCRIPTION DU CLIENT.</p>
-            </ion-card-content>
-
-        </ion-card>
-
-      <div padding>
-        <button  ion-button color="primary"  block (click)="entreeDansLaVoiture()">
-          Entrez
-        </button>
-      </div>
-
-      </div>
-</ion-content>

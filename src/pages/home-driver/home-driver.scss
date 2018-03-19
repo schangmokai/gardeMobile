@@ -1,0 +1,47 @@
+page-home-driver {
+    ion-card{
+      .photo{
+        width: 100%;
+        height: auto;
+      }
+    }
+    ion-item {
+      background: none;
+      padding-left: 0;
+
+      ion-icon {
+        font-size: 3rem;
+      }
+
+      &.button-set {
+
+        ion-label {
+          padding: 0;
+          margin: 0;
+
+          ion-grid {
+            padding: 0;
+          }
+
+          ion-row {
+            padding: 0;
+          }
+
+          ion-col {
+            padding: 0;
+          }
+
+          .button {
+            padding: 25px 5px;
+            background: none;
+            box-shadow: none;
+            color: color($colors, dark);
+
+            &.active {
+              background: color($colors, light);
+            }
+          }
+        }
+    }
+  }
+}

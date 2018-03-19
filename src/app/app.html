@@ -12,7 +12,7 @@
     <ion-list class="list-full-border">
       <button ion-item menuClose *ngFor="let page of pages" (click)="openPage(page)">
         <ion-icon item-left name="{{ page.icon }}"></ion-icon>
-        {{ page.title }}
+        {{ page.title | translate }}
         <ion-badge color="danger" item-right *ngIf="page.count">{{ page.count }}</ion-badge>
       </button>
     </ion-list>

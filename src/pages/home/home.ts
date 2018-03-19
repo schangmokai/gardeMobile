@@ -213,10 +213,11 @@ public note: any;
 
               this.http.post(maconfig.findChauffeurByCodeVehicule, body, options)
                 .subscribe(data => {
+                  loading.dismissAll();
                    this.listesutilisateurs = data.json();
                    this.vehiculeId = this.listesutilisateurs[0].vehicule.id;
-                   this.hometest = 0;
-                   loading.dismissAll();
+                   this.nav.push('HomeDriverPage', {'listesutilisateurs':this.listesutilisateurs, 'vehiculeId':this.vehiculeId, 'imagesUsers':this.imagesUsers, 'imagechauffeur':this.imagechauffeur});
+                   
                 }, error => {
                   console.log(error);
                   loading.dismissAll();
@@ -420,34 +421,7 @@ public note: any;
   }
 
   // cette fonction nous permet de rechercher tous les clients qui sont dans un vehicule a un moment données 
-
-  confirmerForme(element){
-
-      this.imagesUsers = this.imagesUsers;
-      this.hometest = 2;
-      this.chauffeurId = element.vehicule.id;
-      this.utilisateurId = element.chauffeur.id;
-      // nous lons rechercher tous les client de cette voiture
-      
-      let body = {
-          "vehiculeId": this.vehiculeId,
-          "chauffeurId": this.chauffeurId
-      };
-
-      this.homeService.findAllClientByVehiculeId(body).then( (resp) =>{
-            this.listesclients = resp; 
-            console.log(this.listesclients.length);
-            this.nombredeclients = this.listesclients.length;
-      }).catch( (error) =>{    
-          console.log()
-      });
-
-  }
-
-
-
   
-
   // toggle active vehicle
   toggleVehicle(index) {
     for (var i = 0; i < this.vehicles.length; i++) {

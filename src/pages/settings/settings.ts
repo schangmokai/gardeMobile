@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import {IonicPage} from 'ionic-angular';
 import {NavController} from 'ionic-angular';
 import { UserConnecteService } from '../../services/userConnecte-service';
-import {LanguageService} from '../../services/language';
-import {LANG, Languages} from '../../configs/configs';
+import {LanguageService} from './../../services/language';
+import {LANG, Languages, NotificationDelai, TimerCounter} from './../../configs/configs';
+import {TranslateService} from "ng2-translate/src/translate.service";
 
 @IonicPage()
 @Component({
@@ -12,11 +13,12 @@ import {LANG, Languages} from '../../configs/configs';
 export class SettingsPage {
 
     public conseils: any;
-    public timing: any;
-    public languages:any = LanguageService;
-    public langue:string = LANG;
+    public timing: any = TimerCounter.value;
+    public languages:any = Languages;
+    public langue:string = LANG.value;
+    public notificationDelai = NotificationDelai;
 
-    constructor(public nav: NavController , public userconnecte: UserConnecteService, public language:LanguageService) {
+    constructor(public nav: NavController, public translate:TranslateService , public userconnecte: UserConnecteService, public language:LanguageService) {
         this.conseils = "vous allez recevoir des messages en fonctions de vos choix";
     }
 
@@ -46,11 +48,13 @@ export class SettingsPage {
             this.conseils = "conseil pour la selection des 25 minutes";
             this.timing = 25;
         }
+        this.userconnecte.notificationDelai(this.timing);
     }
     
     changeLanguage(e){
         //console.log();
-        this.languageProvider.storeLanguage(this.langue).then((lan:string)=>{
+        this.language.storeLanguage(this.langue).then((lan:string)=>{
+        this.translate.setDefaultLang(lan);
          console.log(lan)});
     }
 

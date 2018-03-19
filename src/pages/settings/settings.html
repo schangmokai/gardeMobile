@@ -9,40 +9,27 @@
     <button  ion-button menuToggle>
        <ion-icon name="menu"></ion-icon>
     </button>
-      <ion-title>Configuration de garde</ion-title>
+      <ion-title>{{'Configuration de garde' | translate}}</ion-title>
     </ion-navbar>
   </ion-header>
   
   <ion-content class="bakgimage">
-    <br>
      <ion-list>
-
-          <ion-item>
-              <ion-label>Langue</ion-label>
-              <ion-select [(ngModel)]="langue"  (ionChange)="changeLanguage($event)" okText='{{"ok_title"|translate}}' cancelText='{{"Cancel_button"|translate}}'>
-                <ion-option value="{{item['value']}}" *ngFor="let item of languages">{{item['name'] | translate }}</ion-option>
+          <ion-item inset>
+              <ion-label>{{'Langue' | translate}}</ion-label>
+              <ion-select [(ngModel)]="langue" (ionChange)="changeLanguage($event)" okText='{{"ok_title"|translate}}' cancelText='{{"Cancel_button"|translate}}'>
+                <ion-option value="{{item['value']}}" [selected]="item['default'] == langue" *ngFor="let item of languages">{{item['name'] | translate }}</ion-option>
               </ion-select>
           </ion-item>
-          <ion-item>
-                <ion-label>Temps de notification</ion-label>
+          <ion-item inset>
+                <ion-label>{{'Temps de notification' | translate}}</ion-label>
                 <ion-select [(ngModel)]="temps" (ionChange)="onSelectChange($event)" interface="popover">
-                    <ion-option value="2">2 minutes</ion-option>
-                    <ion-option value="5">5 minutes</ion-option>
-                    <ion-option value="10">10 minutes</ion-option>
-                    <ion-option value="15">15 minutes</ion-option>
-                    <ion-option value="20">20 minutes</ion-option>
-                    <ion-option value="25">25 minutes</ion-option>
+                <ion-option value="{{item['value']}}" [selected]="item['default'] == 1" *ngFor="let item of notificationDelai">{{item['name'] | translate }}</ion-option>
                 </ion-select>
-            </ion-item>
-            <ion-card style="padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; margin-top: 40px;">
-                    {{conseils}}
-            </ion-card>
+          </ion-item>
+          <ion-item-divider text-wrap>
+            {{conseils | translate}}
+          </ion-item-divider>
      </ion-list>
-     
-     <div padding>
-        <button  ion-button color="primary"  block (click)="home()">
-            MISE A NIVEAU
-        </button>
-     </div>
   </ion-content>
   

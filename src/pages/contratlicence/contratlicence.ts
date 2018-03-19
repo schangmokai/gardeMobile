@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {NavController} from 'ionic-angular';
 import {IonicPage} from 'ionic-angular';
+import { UserConnecteService } from './../../services/userConnecte-service';
 
 @IonicPage()
 @Component({
@@ -8,7 +9,7 @@ import {IonicPage} from 'ionic-angular';
 })
 export class ContratlicencePage {
 
-  constructor(public nav: NavController) {
+  constructor(public nav: NavController, private userconnecteService: UserConnecteService) {
     
   }
 
@@ -29,9 +30,14 @@ export class ContratlicencePage {
       image: "assets/img/ica-slidebox-img-3.png",
     }
   ];
-
-  login(){
-    this.nav.setRoot('LoginPage');
+  //lorsque l'utilisateur décide de continuer
+  finish(){
+    this.userconnecteService.license(false).then(()=>{
+      this.userconnecteService.getSession().then(session=>{
+        this.nav.setRoot('HomePage');
+      }, ()=>{
+        this.nav.setRoot('LoginPage');
+      });
+    });
   }
-
 }
