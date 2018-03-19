@@ -60,5 +60,17 @@
 	"Entrer":"Entrer",
 	"home-driver":"Détails du Véhicule",
 	"Choose the driver":"Qui est le conducteur?",
-	"no image available":"Image indisponible"
+	"no image available":"Image indisponible",
+	"Places":"Places",
+	"Recent":"Recent",
+	"Nearby":"Nearby",
+	"Driver found":"Driver found",
+	"Success! We found you a driver":"Success! We found you a driver",
+	"Hi, my name is":"Hi, my name is",
+	"and I am":"and I am",
+	"KM away":"KM away",
+	"Plate Number":"Plate Number",
+	"Please pay by":"Please pay by",
+	"Next":"Next",
+	"Finding you a driver":"Finding you a driver"
 }

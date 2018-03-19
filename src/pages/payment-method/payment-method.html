@@ -6,7 +6,7 @@
 -->
 <ion-header>
   <ion-navbar  color="primary" >
-    <ion-title>Payment Methods</ion-title>
+    <ion-title>{{'Payment Methods' | translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -14,15 +14,15 @@
   <ion-list class="list-full-border" radio-group>
     <ion-item>
       <ion-label>
-        Cash
-        <p class="text-hint">Use cash</p>
+        {{'Cash' | translate}}
+        <p class="text-hint">{{'Use cash' | translate}}</p>
       </ion-label>
       <ion-radio checked="true" value="A" (click)="changeMethod('cash')"></ion-radio>
     </ion-item>
 
     <ion-item>
       <ion-label>
-        Card
+       {{'Card' | translate}}
         <p class="text-hint">Credit card XXX71</p>
       </ion-label>
       <ion-radio value="B" (click)="changeMethod('card')"></ion-radio>

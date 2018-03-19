@@ -6,13 +6,13 @@
 -->
 <ion-header>
   <ion-navbar color="primary" >
-    <ion-title>Driver found</ion-title>
+    <ion-title>{{'Driver found' | translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
   <div class="driver-top dark-bg light" text-center>
-    <span>Success! We found you a driver</span>
+    <span>{{'Success! We found you a driver' | translate}}</span>
   </div>
 
   <div class="driver-info rlt" text-center>
@@ -22,23 +22,23 @@
       <img class="circle" src="assets/img/thumb/adam.jpg" alt=""/>
     </div>
 
-    <div no-margin>Hi, my name is</div>
+    <div no-margin>{{'Hi, my name is' | translate}}</div>
     <h3 no-margin ion-text color="primary" >{{ driver.name }}</h3>
-    <div no-margin>and I am {{ driver.distance }}KM away</div>
+    <div no-margin>{{'and I am' | translate}} {{ driver.distance }}{{'KM away' | translate}}</div>
 
     <ion-grid class="driver-plate">
       <ion-row>
         <ion-col>
-          <div class="text-hint">Plate Number</div>
+          <div class="text-hint">{{'Plate Number' | translate}}</div>
           <strong margin-top>{{ driver.plate }}</strong>
         </ion-col>
         <ion-col>
-          <div class="text-hint">Please pay by</div>
-          <strong>Cash</strong>
+          <div class="text-hint">{{'Please pay by' | translate}}</div>
+          <strong>Cash' | translate}}</strong>
         </ion-col>
       </ion-row>
     </ion-grid>
 
-    <div ion-button block color="primary" (click)="track()">Next</div>
+    <div ion-button block color="primary" (click)="track()">{{'Next' | translate}}</div>
   </div>
 </ion-content>
